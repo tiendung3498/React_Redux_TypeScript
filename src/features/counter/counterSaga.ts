@@ -1,12 +1,13 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import {takeEvery} from '@redux-saga/core/effects'
+import {put, delay, takeEvery,takeLatest} from '@redux-saga/core/effects'
+import { incrementSaga, incrementSagaSuccess } from './counterSlice'
 
-function log(action: PayloadAction){
-    console.log('log: ', action)
+function* handleIncrementSaga(action: PayloadAction<number>){
+    yield delay(1000);
+    yield put(incrementSagaSuccess(action.payload)) 
 }
 
 export default function* counterSaga(){
-    console.log('counter saga')
-    yield takeEvery('*',log)
+    yield takeEvery(incrementSaga.toString(),handleIncrementSaga)
     
 }
