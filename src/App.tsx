@@ -16,7 +16,7 @@ function App() {
        <Routes>
          <Route path = '/admin' element={<AddminLayout/>}></Route>
          <Route path = '/login' element={<LoginPage/>}></Route>
-         <Route element={<Notfound/>}></Route>
+         <Route path="*" element={<Notfound/>}></Route>
        </Routes>
     </div>
   );
