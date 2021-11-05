@@ -1,60 +1,23 @@
 import React, { useEffect } from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
 import './App.css';
 import cityApi from 'api/cityApi';
+import studentApi from 'api/studenApi';
+import LoginPage from 'features/auth/pages/LoginPage';
+import { AddminLayout } from 'components/Layout';
+import { Notfound } from 'components/Common';
+import {Routes,Route} from 'react-router-dom';
 
 function App() {
   useEffect(()=>{
-    cityApi.getAll().then((res)=>console.log(res))
+    //  cityApi.getAll().then((res)=>console.log(res));
   })
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+    <div>
+       <Routes>
+         <Route path = '/admin' element={<AddminLayout/>}></Route>
+         <Route path = '/login' element={<LoginPage/>}></Route>
+         <Route element={<Notfound/>}></Route>
+       </Routes>
     </div>
   );
 }
