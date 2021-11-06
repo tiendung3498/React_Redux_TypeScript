@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import authSlice from 'features/auth/authSlice';
 import { RootState, AppThunk } from '../../app/store';
 import { fetchCount } from './counterAPI';
 
@@ -66,7 +67,6 @@ export const counterSlice = createSlice({
       });
   },
 });
-
 export const { increment, decrement, incrementByAmount,incrementSaga,incrementSagaSuccess } = counterSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
