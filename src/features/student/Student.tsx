@@ -1,11 +1,12 @@
 import { Button, makeStyles, Paper, Typography,Box } from '@material-ui/core';
-import { useAppDispatch } from 'app/hooks';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 import * as React from 'react';
-import { login } from '../authSlice';
+import { logout } from '../auth/authSlice';
 
 
-export default function LoginPage () {
-  const useStyles = makeStyles((theme)=>({
+export default function Student () {
+
+    const useStyles = makeStyles((theme)=>({
     root:{
       display: 'flex',
       flexflow: 'row-nowrap',
@@ -19,35 +20,26 @@ export default function LoginPage () {
 
   }))
     
+    const user = JSON.parse(JSON.stringify(localStorage.getItem('login')));
+    const dispatch = useAppDispatch()
+    const classes = useStyles()
   
-  const classes = useStyles();
-  const dispatch = useAppDispatch();
-
-  const handleLoggin = ()=>{
-    dispatch(login({
-      userName:'dung',
-      passWord:''
-    }))
-  }
-
   return (
-    
     <div className = {classes.root}>
       <Paper elevation={1} className={classes.box}>
         <Typography variant ="h5" component="h1">
-           Studen Management
+           Welcome {user}
         </Typography>
         <Box mt={4}>
            <Button
               fullWidth variant = "contained" color="primary"
-              onClick = {handleLoggin}
+              onClick = {()=>dispatch(logout())}
               >
-              Fake Login
+              Fake Logout
            </Button>
 
         </Box>
       </Paper>
     </div>
-    
   );
 }

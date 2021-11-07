@@ -35,13 +35,15 @@ export const authSlice = createSlice({
       },
       logout: (state) => {
         state.isLoggedIn=true;
-        state.currentUser = undefined
+        state.currentUser = undefined;
+        
     },}
     
 
   });
   export const selectIsLoggedIn = (state:any)=>state.auth.isLoggedIn
   export const selectLoggin = (state:any)=>state.auth.logging
+  export const selectCurrentUser = (state:any)=>state.auth.currentUser
 
   export const { login, loginFailed,loginSuccess, logout} = authSlice.actions;
   const authReducer = authSlice.reducer
