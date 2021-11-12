@@ -1,10 +1,11 @@
 import { fork,call,take,put,delay } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
+import { push } from 'connected-react-router';
 import { login, loginFailed, LoginPayload, loginSuccess, logout } from './authSlice';
 
 function* handleLogin(payload: LoginPayload){
   try {
-    yield delay(1000)
+    yield delay(500)
     localStorage.setItem('login',JSON.stringify(payload.userName))
 
 
@@ -12,6 +13,7 @@ function* handleLogin(payload: LoginPayload){
       id:'1',
       name:payload.userName,
     }))
+    yield put(push('/admin'))
     
   } catch (error:any) {
     yield put(loginFailed(error.message))
@@ -20,8 +22,9 @@ function* handleLogin(payload: LoginPayload){
 }
 
 function* handleLogout(){
-
+  yield delay(500);
   localStorage.removeItem('login');
+  yield put(push('/login'))
 }
 
 function* watchLoginFlow(){
