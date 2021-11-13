@@ -6,7 +6,7 @@ import LoginPage from 'features/auth/pages/LoginPage';
 import { AddminLayout } from 'components/Layout';
 import { Notfound } from 'components/Common';
 import {Route,Switch} from 'react-router';
-import Student from 'features/student/Student';
+import Student from 'features/student';
 import { useAppSelector } from 'app/hooks';
 import { selectLoggin } from 'features/auth/authSlice';
 
@@ -21,7 +21,6 @@ function App() {
        <Switch>
          <Route path = '/login' component={LoginPage}></Route>
          <Route path = '/admin' component={AddminLayout}></Route>
-         <Route path = '/user' component={Student}></Route>
          <Route path="*" component={Notfound}></Route>
        </Switch>
     </div>

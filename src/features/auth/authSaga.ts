@@ -5,7 +5,7 @@ import { login, loginFailed, LoginPayload, loginSuccess, logout } from './authSl
 
 function* handleLogin(payload: LoginPayload){
   try {
-    yield delay(500)
+    yield delay(1000)
     localStorage.setItem('login',JSON.stringify(payload.userName))
 
 
@@ -13,7 +13,7 @@ function* handleLogin(payload: LoginPayload){
       id:'1',
       name:payload.userName,
     }))
-    yield put(push('/admin'))
+    yield put(push('/admin/dashboard'))
     
   } catch (error:any) {
     yield put(loginFailed(error.message))

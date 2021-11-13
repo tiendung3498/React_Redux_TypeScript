@@ -34,6 +34,7 @@ export const authSlice = createSlice({
 
       },
       logout: (state) => {
+        state.logging = false;
         state.isLoggedIn=true;
         state.currentUser = undefined;
         

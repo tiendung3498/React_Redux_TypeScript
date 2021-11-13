@@ -1,8 +1,12 @@
 import { Button, makeStyles, Paper, Typography,Box } from '@material-ui/core';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { logout } from 'features/auth/authSlice';
+import { useAppDispatch, } from 'app/hooks';
+import { logout, selectLoggin } from 'features/auth/authSlice';
 import * as React from 'react';
 import { push } from 'connected-react-router';
+import { Header, SideBar } from 'components/Common';
+import { Route, Switch } from 'react-router';
+import DashBoard from 'features/dashboard';
+import Student from 'features/student';
 
 export interface AddminLayoutProps {
 }
@@ -11,15 +15,29 @@ export function AddminLayout (props: AddminLayoutProps) {
 
   const useStyles = makeStyles((theme)=>({
     root:{
-      display: 'flex',
-      flexflow: 'row-nowrap',
-      justifyContent:'center',
-      alignItems:'center',
+      display: 'grid',
+      gridTemplateRows:'auto 1fr',
+      gridTemplateColumns:'240px 1fr',
+      gridTemplateAreas:'"header header" "sidebar main"',
+      
       minHeight:'100vh'
     },
-    box:{
-       padding: theme.spacing(3),
+    header:{
+       gridArea:'header',
     },
+    sideBar:{
+      gridArea:'sidebar',
+      borderRight:`1px solid ${theme.palette.divider}`,
+      backgroundColor :theme.palette.background.paper,
+
+    },
+    main:{
+      gridArea:'main',
+      backgroundColor :theme.palette.background.paper,
+      padding:theme.spacing(2,3),
+
+
+    }
 
   }))
     
@@ -28,24 +46,24 @@ export function AddminLayout (props: AddminLayoutProps) {
     const classes = useStyles()
     const user = JSON.parse(JSON.stringify(localStorage.getItem('login')));
     if(!user) dispatch(push('/login'));
+
   
   return (
-    <div className = {classes.root}>
-      <Paper elevation={1} className={classes.box}>
-        <Typography variant ="h5" component="h1">
-           Welcome {user}
-        </Typography>
-        <Box mt={4}>
-           <Button
-              fullWidth variant = "contained" color="primary"
-              onClick = {()=>dispatch(logout())}
-              >
-              Fake Logout
-           </Button>
-
+    <Box className = {classes.root}>
+        <Box className = {classes.header}>
+           <Header/>
         </Box>
-      </Paper>
-    </div>
+        <Box className = {classes.sideBar}>
+           <SideBar/>
+        </Box>
+        <Box className = {classes.main}>
+             <Switch>
+               <Route path='/admin/dashboard' component = {DashBoard}></Route>
+               <Route path='/admin/student' component = {Student}></Route>
+
+             </Switch>
+        </Box>
+    </Box>
   );
 }
 

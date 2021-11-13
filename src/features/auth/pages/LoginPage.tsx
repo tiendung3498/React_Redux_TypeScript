@@ -1,7 +1,9 @@
 import { Button, makeStyles, Paper, Typography,Box } from '@material-ui/core';
-import { useAppDispatch } from 'app/hooks';
+import { CircularProgress } from '@mui/material';
+import { useAppDispatch,useAppSelector } from 'app/hooks';
+import { push } from 'connected-react-router';
 import * as React from 'react';
-import { login } from '../authSlice';
+import { login, selectLoggin } from '../authSlice';
 
 
 export default function LoginPage () {
@@ -29,7 +31,7 @@ export default function LoginPage () {
       passWord:''
     }))
   }
-
+  const isLogging = useAppSelector(selectLoggin)
   return (
     
     <div className = {classes.root}>
@@ -42,7 +44,7 @@ export default function LoginPage () {
               fullWidth variant = "contained" color="primary"
               onClick = {handleLoggin}
               >
-              Fake Login
+              {isLogging && <CircularProgress size={20} color="secondary"/>} &nbsp;  Fake Login
            </Button>
 
         </Box>
